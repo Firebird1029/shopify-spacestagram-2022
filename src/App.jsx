@@ -27,7 +27,12 @@ function App() {
 	}, []);
 
 	return (
-		<AppProvider i18n={enTranslations}>
+		<AppProvider
+			i18n={enTranslations}
+			theme={{
+				colorScheme: "dark",
+			}}
+		>
 			<Page title="Spacestagram">{isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}</Page>
 		</AppProvider>
 	);
