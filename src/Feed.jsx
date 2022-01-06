@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Layout, Card, Button, TextContainer, Heading, TextStyle } from "@shopify/polaris";
+import { Layout, Card, Button, TextContainer, TextStyle } from "@shopify/polaris";
 import { ThumbsUpMajor } from "@shopify/polaris-icons";
 import ProgressiveImage from "react-progressive-image";
 

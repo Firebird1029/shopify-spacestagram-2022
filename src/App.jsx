@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AppProvider, Page, Layout, Card, Button } from "@shopify/polaris";
+import { AppProvider, Card, DisplayText, Page, TextContainer } from "@shopify/polaris";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import "./App.css";
 import Feed from "./Feed";
@@ -33,7 +33,24 @@ function App() {
 				colorScheme: "dark",
 			}}
 		>
-			<Page title="Spacestagram">{isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}</Page>
+			<Page fullWidth>
+				<br />
+				<DisplayText size="extraLarge">Spacestagram</DisplayText>
+				<br />
+				<Card sectioned title="Welcome to Spacestagram!">
+					<TextContainer>
+						<p>
+							This modest website pulls images from NASA&apos;s APOD (Astronomy Picture of the Day) API
+							and allows you to like/unlike your favorites.
+						</p>
+					</TextContainer>
+				</Card>
+				<br />
+				<br />
+				<div style={{ maxWidth: "120rem", margin: "0 auto" }}>
+					{isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}
+				</div>
+			</Page>
 		</AppProvider>
 	);
 }
