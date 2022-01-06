@@ -1,17 +1,22 @@
+import { AppProvider, Page, Layout, Card, Button } from "@shopify/polaris";
+import enTranslations from "@shopify/polaris/locales/en.json";
 import "./App.css";
 
 function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-					Learn React
-				</a>
-			</header>
-		</div>
+		<AppProvider i18n={enTranslations}>
+			<Page title="Spacestagram">
+				<Layout>
+					{[1, 2, 3].map(() => (
+						<Layout.Section oneThird>
+							<Card sectioned>
+								<Button onClick={() => alert("Button clicked!")}>Example button</Button>
+							</Card>
+						</Layout.Section>
+					))}
+				</Layout>
+			</Page>
+		</AppProvider>
 	);
 }
 
