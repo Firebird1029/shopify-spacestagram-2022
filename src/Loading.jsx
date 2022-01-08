@@ -1,4 +1,4 @@
-import { Layout, Card, Button } from "@shopify/polaris";
+import { Layout } from "@shopify/polaris";
 
 function Loading() {
 	return (

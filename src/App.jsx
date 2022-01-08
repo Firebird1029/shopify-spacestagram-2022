@@ -48,7 +48,7 @@ function App() {
 				<br />
 				<br />
 				<div style={{ maxWidth: "120rem", margin: "0 auto" }}>
-					{isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}
+					{!error && isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}
 				</div>
 			</Page>
 		</AppProvider>
