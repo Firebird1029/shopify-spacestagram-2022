@@ -11,20 +11,20 @@ class LocalStorageService {
 			this.storage.setItem(this.storageKey, "{}"); // set default data in localstorage
 			return {};
 		}
-		return data;
+		return JSON.parse(data);
 	}
 
 	// Get data associated with a specific picture given its url
 	getPictureState(url) {
 		const data = this.getAllData();
 		if (Object.prototype.hasOwnProperty.call(data, url)) {
-			return JSON.parse(data[url]);
+			return data[url];
 		}
 		return null;
 	}
 
 	// Set the data associated with a specific picture given its url
-	savePictureState(url, state) {
+	setPictureState(url, state) {
 		this.storage.setItem(this.storageKey, JSON.stringify({ ...this.getAllData(), [url]: state }));
 	}
 }
