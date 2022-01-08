@@ -2,8 +2,11 @@ import PropTypes from "prop-types";
 import { Layout, Card, Button, TextContainer, TextStyle } from "@shopify/polaris";
 import { ThumbsUpMajor } from "@shopify/polaris-icons";
 import ProgressiveImage from "react-progressive-image";
+import LocalStorageService from "./localStorage.service";
 
 function Feed({ nasaItems }) {
+	const storage = new LocalStorageService("shopify-spacestagram-2022-brandonyee");
+
 	return (
 		<Layout>
 			{nasaItems.map(
@@ -32,7 +35,7 @@ function Feed({ nasaItems }) {
 									</ProgressiveImage>
 
 									{/* Like Button */}
-									<Button primary icon={ThumbsUpMajor}>
+									<Button primary icon={ThumbsUpMajor} outline={!storage.getPictureState(url)}>
 										&nbsp;Like
 									</Button>
 
