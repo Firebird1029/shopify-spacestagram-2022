@@ -16,11 +16,16 @@ function App() {
 	const [{ month, year }, setDate] = useState({ month: 0, year: 2022 });
 	const [selectedDates, setSelectedDates] = useState({
 		start: new Date("Sun Jan 02 2022 00:00:00 GMT-0500 (EST)"),
-		end: new Date("Sun Jan 09 2022 00:00:00 GMT-0500 (EST)"),
+		end: new Date("Wed Jan 05 2022 00:00:00 GMT-0500 (EST)"),
 	});
 
 	// Get data from NASA API
 	useEffect(() => {
+		// if user did not select end date yet
+		if (selectedDates.start.toDateString() === selectedDates.end.toDateString()) {
+			return;
+		}
+
 		// pull images from a specific range of dates, as set by the date picker
 		const startDate = dateFormat(selectedDates.start, "yyyy-mm-dd");
 		const endDate = dateFormat(selectedDates.end, "yyyy-mm-dd");
@@ -30,7 +35,10 @@ function App() {
 			.then((res) => res.json())
 			.then(
 				(result) => {
-					setNasaItems(result);
+					if (Array.isArray(result)) {
+						// only update state if API returned valid response
+						setNasaItems(result);
+					}
 					setIsLoaded(true);
 				},
 				(err) => {
