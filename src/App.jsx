@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { AppProvider, Button, Card, DatePicker, DisplayText, Page, TextContainer } from "@shopify/polaris";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import dayjs from "dayjs";
-import "./App.css";
 import Feed from "./Feed";
 import Loading from "./Loading";
 
