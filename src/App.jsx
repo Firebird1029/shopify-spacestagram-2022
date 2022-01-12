@@ -117,6 +117,7 @@ function App() {
 				<div style={{ maxWidth: "120rem", margin: "0 auto" }}>
 					{!error && isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}
 				</div>
+				<footer style={{ margin: "5rem auto 5rem" }}>&copy; 2022 Brandon Yee.</footer>
 			</Page>
 		</AppProvider>
 	);
