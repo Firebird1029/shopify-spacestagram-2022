@@ -32,8 +32,8 @@ function Post({ details: { copyright, date, explanation, hdurl, title, url } }) 
 									filter: loading ? "blur(5px)" : "none",
 								}}
 								src={src}
-								alt={title}
-								name={title}
+								title={title}
+								alt={explanation}
 							/>
 						</div>
 					)}
