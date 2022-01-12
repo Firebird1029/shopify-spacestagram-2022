@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/shopify-spacestagram-2022/static/css/main.b63ca400.css",
+    "main.js": "/shopify-spacestagram-2022/static/js/main.9876cd26.js",
+    "index.html": "/shopify-spacestagram-2022/index.html",
+    "main.b63ca400.css.map": "/shopify-spacestagram-2022/static/css/main.b63ca400.css.map",
+    "main.9876cd26.js.map": "/shopify-spacestagram-2022/static/js/main.9876cd26.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b63ca400.css",
+    "static/js/main.9876cd26.js"
+  ]
+}
