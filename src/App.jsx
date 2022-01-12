@@ -1,18 +1,32 @@
-import { useState, useEffect } from "react";
-import { AppProvider, Card, DisplayText, Page, TextContainer } from "@shopify/polaris";
+import { useState, useEffect, useCallback } from "react";
+import { AppProvider, Card, DatePicker, DisplayText, Page, TextContainer } from "@shopify/polaris";
 import enTranslations from "@shopify/polaris/locales/en.json";
+import dateFormat from "dateformat";
 import "./App.css";
 import Feed from "./Feed";
 import Loading from "./Loading";
 
 function App() {
+	// NASA API-related state
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [nasaItems, setNasaItems] = useState([]);
 
+	// Date picker-related state
+	const [{ month, year }, setDate] = useState({ month: 0, year: 2022 });
+	const [selectedDates, setSelectedDates] = useState({
+		start: new Date("Sun Jan 02 2022 00:00:00 GMT-0500 (EST)"),
+		end: new Date("Sun Jan 09 2022 00:00:00 GMT-0500 (EST)"),
+	});
+
 	// Get data from NASA API
 	useEffect(() => {
-		fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&count=10`)
+		// pull images from a specific range of dates, as set by the date picker
+		const startDate = dateFormat(selectedDates.start, "yyyy-mm-dd");
+		const endDate = dateFormat(selectedDates.end, "yyyy-mm-dd");
+		fetch(
+			`https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&start_date=${startDate}&end_date=${endDate}`
+		)
 			.then((res) => res.json())
 			.then(
 				(result) => {
@@ -24,7 +38,13 @@ function App() {
 					setIsLoaded(true);
 				}
 			);
-	}, []);
+
+		// to just pull 10 random images: (also remove selectedDates from React hook)
+		// https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&count=10
+	}, [selectedDates]);
+
+	// Date picker code
+	const handleMonthChange = useCallback((newMonth, newYear) => setDate({ month: newMonth, year: newYear }), []);
 
 	return (
 		<AppProvider
@@ -72,6 +92,17 @@ function App() {
 							</li>
 						</ul>
 					</TextContainer>
+				</Card>
+				<Card sectioned title="Date Picker">
+					<DatePicker
+						month={month}
+						year={year}
+						onChange={setSelectedDates}
+						onMonthChange={handleMonthChange}
+						selected={selectedDates}
+						multiMonth
+						allowRange
+					/>
 				</Card>
 				<br />
 				<br />
