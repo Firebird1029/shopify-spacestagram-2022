@@ -3,7 +3,7 @@ import { Layout } from "@shopify/polaris";
 function Loading() {
 	return (
 		<Layout>
-			<p>Loading...</p>
+			<p>Pulling images from NASA...</p>
 		</Layout>
 	);
 }
