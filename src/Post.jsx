@@ -7,11 +7,7 @@ import LocalStorageService from "./localStorage.service";
 
 const storage = new LocalStorageService("shopify-spacestagram-2022-brandonyee");
 
-function Post({ details: { copyright, date, explanation, hdurl, media_type: mediaType, title, url } }) {
-	if (mediaType !== "image") {
-		return null; // don't display anything that's not an image
-	}
-
+function Post({ details: { copyright, date, explanation, hdurl, title, url } }) {
 	// get any existing data from local storage
 	const [localData, setLocalData] = useState(storage.getPictureState(url));
 
@@ -70,7 +66,6 @@ Post.propTypes = {
 		date: PropTypes.string,
 		explanation: PropTypes.string,
 		hdurl: PropTypes.string,
-		media_type: PropTypes.string,
 		title: PropTypes.string,
 		url: PropTypes.string,
 	}).isRequired,

@@ -5,11 +5,14 @@ import Post from "./Post";
 function Feed({ nasaItems }) {
 	return (
 		<Layout>
-			{nasaItems.map((details) => (
-				<Layout.Section oneHalf key={details.url}>
-					<Post details={details} />
-				</Layout.Section>
-			))}
+			{nasaItems.map((details) =>
+				// don't display non-images
+				details.media_type === "image" ? (
+					<Layout.Section oneHalf key={details.url}>
+						<Post details={details} />
+					</Layout.Section>
+				) : null
+			)}
 		</Layout>
 	);
 }
