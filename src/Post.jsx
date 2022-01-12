@@ -42,7 +42,6 @@ function Post({ details: { copyright, date, explanation, hdurl, title, url } }) 
 				<ButtonGroup>
 					{/* Like Button */}
 					<Button
-						primary
 						icon={ThumbsUpMajor}
 						outline={!(localData && localData.liked)}
 						onClick={() => setLocalData({ liked: !(localData && localData.liked) })}
@@ -52,7 +51,6 @@ function Post({ details: { copyright, date, explanation, hdurl, title, url } }) 
 
 					{/* Share Button */}
 					<Button
-						primary
 						icon={ShareMinor}
 						outline
 						onClick={() => window.open(`?date=${dayjs(date).format("YYYY-MM-DD")}`, "_blank").focus()}

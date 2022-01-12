@@ -17,6 +17,11 @@ function App() {
 	const [selectedDates, setSelectedDates] = useState(null);
 	const [preRequestedDate, setPreRequestedDate] = useState(false);
 
+	// Dark mode
+	const [darkMode, setDarkMode] = useState(
+		window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+	);
+
 	// Get data from NASA API
 	useEffect(() => {
 		// ensure page has loaded & user selected both start AND end dates before requesting data
@@ -78,7 +83,7 @@ function App() {
 		<AppProvider
 			i18n={enTranslations}
 			theme={{
-				colorScheme: "dark",
+				colorScheme: darkMode ? "dark" : "light",
 			}}
 		>
 			<Page fullWidth>
@@ -119,6 +124,14 @@ function App() {
 									</li>
 									<li>
 										The Share button creates a shareable link that displays only the shared image.
+									</li>
+									<li>
+										This website automatically detects your computer&apos;s dark mode preference.
+										Alternatively, you may toggle it on/off&nbsp;
+										<Button plain onClick={() => setDarkMode((mode) => !mode)}>
+											here
+										</Button>
+										.
 									</li>
 									<li>
 										Each image post is its own React component, so changing its state
