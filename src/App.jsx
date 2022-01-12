@@ -87,7 +87,7 @@ function App() {
 		>
 			<Page fullWidth>
 				<br />
-				<a href="/" style={{ color: "inherit", textDecoration: "inherit" }}>
+				<a href={process.env.REACT_APP_HOMEPAGE} style={{ color: "inherit", textDecoration: "inherit" }}>
 					<DisplayText size="extraLarge">Spacestagram</DisplayText>
 				</a>
 				<br />
@@ -166,7 +166,9 @@ function App() {
 				{/* Return to Main Site Button */}
 				{preRequestedDate && (
 					<div style={{ margin: "5rem auto 5rem", textAlign: "center" }}>
-						<Button onClick={() => window.location.replace("/")}>Return to Main Site</Button>
+						<Button onClick={() => window.location.replace(process.env.REACT_APP_HOMEPAGE)}>
+							Return to Main Site
+						</Button>
 					</div>
 				)}
 
