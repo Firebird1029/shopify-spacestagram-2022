@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { AppProvider, Card, DatePicker, DisplayText, Page, TextContainer } from "@shopify/polaris";
 import enTranslations from "@shopify/polaris/locales/en.json";
-import dateFormat from "dateformat";
+import dayjs from "dayjs";
 import "./App.css";
 import Feed from "./Feed";
 import Loading from "./Loading";
@@ -14,21 +14,24 @@ function App() {
 
 	// Date picker-related state
 	const [{ month, year }, setDate] = useState({ month: 0, year: 2022 });
-	const [selectedDates, setSelectedDates] = useState({
-		start: new Date("Sun Jan 02 2022 00:00:00 GMT-0500 (EST)"),
-		end: new Date("Wed Jan 05 2022 00:00:00 GMT-0500 (EST)"),
-	});
+	const [selectedDates, setSelectedDates] = useState(null);
+	const [preRequestedDate, setPreRequestedDate] = useState(false);
 
 	// Get data from NASA API
 	useEffect(() => {
+		// ensure page has loaded before requesting data
+		if (!selectedDates) {
+			return;
+		}
+
 		// if user did not select end date yet
-		if (selectedDates.start.toDateString() === selectedDates.end.toDateString()) {
+		if (!preRequestedDate && selectedDates.start.toDateString() === selectedDates.end.toDateString()) {
 			return;
 		}
 
 		// pull images from a specific range of dates, as set by the date picker
-		const startDate = dateFormat(selectedDates.start, "yyyy-mm-dd");
-		const endDate = dateFormat(selectedDates.end, "yyyy-mm-dd");
+		const startDate = dayjs(selectedDates.start).format("YYYY-MM-DD");
+		const endDate = dayjs(selectedDates.end).format("YYYY-MM-DD");
 		fetch(
 			`https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&start_date=${startDate}&end_date=${endDate}`
 		)
@@ -47,12 +50,34 @@ function App() {
 				}
 			);
 
+		// revert preRequestedDate to re-prevent triggering hook without selecting start date in date picker
+		setPreRequestedDate(false);
+
 		// to just pull 10 random images: (also remove selectedDates from React hook)
 		// https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&count=10
 	}, [selectedDates]);
 
 	// Date picker code
 	const handleMonthChange = useCallback((newMonth, newYear) => setDate({ month: newMonth, year: newYear }), []);
+
+	// Render pre-requested image if exists
+	useEffect(() => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const requestedDate = urlParams.get("date");
+
+		// make sure requested date is of the form YYYY-MM-DD
+		if (requestedDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate)) {
+			setPreRequestedDate(true);
+			const validDate = dayjs(requestedDate, "YYYY-MM-DD");
+			setSelectedDates({ start: validDate.toDate(), end: validDate.toDate() });
+		} else {
+			// due to race condition, only set initial dates once we know there is no prerequested date
+			setSelectedDates({
+				start: new Date("Sat Jan 01 2022"),
+				end: new Date("Tue Jan 04 2022"),
+			});
+		}
+	}, []);
 
 	return (
 		<AppProvider

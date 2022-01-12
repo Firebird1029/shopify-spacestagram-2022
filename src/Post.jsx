@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ProgressiveImage from "react-progressive-image";
-import { Card, Button, TextContainer, TextStyle } from "@shopify/polaris";
-import { ThumbsUpMajor } from "@shopify/polaris-icons";
-import dateFormat from "dateformat";
+import { Card, Button, TextContainer, TextStyle, ButtonGroup } from "@shopify/polaris";
+import { ThumbsUpMajor, ShareMinor } from "@shopify/polaris-icons";
+import dayjs from "dayjs";
 import LocalStorageService from "./localStorage.service";
 
 const storage = new LocalStorageService("shopify-spacestagram-2022-brandonyee");
@@ -39,19 +39,31 @@ function Post({ details: { copyright, date, explanation, hdurl, title, url } }) 
 					)}
 				</ProgressiveImage>
 
-				{/* Like Button */}
-				<Button
-					primary
-					icon={ThumbsUpMajor}
-					outline={!(localData && localData.liked)}
-					onClick={() => setLocalData({ liked: !(localData && localData.liked) })}
-				>
-					&nbsp;Like{localData && localData.liked ? "d" : ""}
-				</Button>
+				<ButtonGroup>
+					{/* Like Button */}
+					<Button
+						primary
+						icon={ThumbsUpMajor}
+						outline={!(localData && localData.liked)}
+						onClick={() => setLocalData({ liked: !(localData && localData.liked) })}
+					>
+						&nbsp;Like{localData && localData.liked ? "d" : ""}
+					</Button>
+
+					{/* Share Button */}
+					<Button
+						primary
+						icon={ShareMinor}
+						outline
+						onClick={() => window.open(`?date=${dayjs(date).format("YYYY-MM-DD")}`, "_blank").focus()}
+					>
+						&nbsp;Share
+					</Button>
+				</ButtonGroup>
 
 				{/* Explanation */}
 				<p>{explanation}</p>
-				<p>{dateFormat(date, "DDDD, mmmm d, yyyy")}</p>
+				<p>{dayjs(date, "YYYY-MM-DD").format("dddd, MMMM D, YYYY")}</p>
 				<br />
 
 				{/* Copyright */}
