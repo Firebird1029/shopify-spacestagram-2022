@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ProgressiveImage from "react-progressive-image";
 import { Card, Button, TextContainer, TextStyle } from "@shopify/polaris";
 import { ThumbsUpMajor } from "@shopify/polaris-icons";
+import dateFormat from "dateformat";
 import LocalStorageService from "./localStorage.service";
 
 const storage = new LocalStorageService("shopify-spacestagram-2022-brandonyee");
@@ -50,7 +51,7 @@ function Post({ details: { copyright, date, explanation, hdurl, title, url } }) 
 
 				{/* Explanation */}
 				<p>{explanation}</p>
-				<p>{date}</p>
+				<p>{dateFormat(date, "DDDD, mmmm d, yyyy")}</p>
 				<br />
 
 				{/* Copyright */}
