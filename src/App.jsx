@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { AppProvider, Card, DatePicker, DisplayText, Page, TextContainer } from "@shopify/polaris";
+import { AppProvider, Button, Card, DatePicker, DisplayText, Page, TextContainer } from "@shopify/polaris";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import dayjs from "dayjs";
 import "./App.css";
@@ -19,13 +19,11 @@ function App() {
 
 	// Get data from NASA API
 	useEffect(() => {
-		// ensure page has loaded before requesting data
-		if (!selectedDates) {
-			return;
-		}
-
-		// if user did not select end date yet
-		if (!preRequestedDate && selectedDates.start.toDateString() === selectedDates.end.toDateString()) {
+		// ensure page has loaded & user selected both start AND end dates before requesting data
+		if (
+			!selectedDates ||
+			(!preRequestedDate && selectedDates.start.toDateString() === selectedDates.end.toDateString())
+		) {
 			return;
 		}
 
@@ -49,9 +47,6 @@ function App() {
 					setIsLoaded(true);
 				}
 			);
-
-		// revert preRequestedDate to re-prevent triggering hook without selecting start date in date picker
-		setPreRequestedDate(false);
 
 		// to just pull 10 random images: (also remove selectedDates from React hook)
 		// https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&count=10
@@ -88,60 +83,82 @@ function App() {
 		>
 			<Page fullWidth>
 				<br />
-				<DisplayText size="extraLarge">Spacestagram</DisplayText>
+				<a href="/" style={{ color: "inherit", textDecoration: "inherit" }}>
+					<DisplayText size="extraLarge">Spacestagram</DisplayText>
+				</a>
 				<br />
-				<Card sectioned title="Welcome to Spacestagram, image-sharing from the final frontier!">
-					<TextContainer>
-						<p>
-							This website pulls images from NASA&apos;s APOD (Astronomy Picture of the Day) API and
-							allows you to like/unlike your favorites. The website design comes from{" "}
-							<a
-								href="https://polaris.shopify.com/"
-								style={{ color: "white" }}
-								target="_blank"
-								rel="noreferrer"
-							>
-								Shopify&apos;s Polaris library
-							</a>
-							.
-						</p>
-						<p>
-							Use the date picker below (powered by the Polaris design library) to view images from a
-							specific range of dates.
-						</p>
-						<p>
-							<strong>Key Features:</strong>
-						</p>
-						<ul>
-							<li>
-								The images are progressively loaded from NASA&apos;s API. First, the thumbnail of the
-								image (provided from NASA) is shown and intentionally blurred. Once the HD image is
-								loaded, it is swapped in and the image is unblurred.
-							</li>
-							<li>This website uses LocalStorage to keep track of an image&apos;s like status.</li>
-							<li>
-								Each image post is its own React component, so changing its state (liking/unliking the
-								image) will only re-render that specific image and not the whole page.
-							</li>
-						</ul>
-					</TextContainer>
-				</Card>
-				<Card sectioned title="Date Picker">
-					<DatePicker
-						month={month}
-						year={year}
-						onChange={setSelectedDates}
-						onMonthChange={handleMonthChange}
-						selected={selectedDates}
-						multiMonth
-						allowRange
-					/>
-				</Card>
+				{!preRequestedDate && (
+					<div>
+						{/* Introduction */}
+						<Card sectioned title="Welcome to Spacestagram, image-sharing from the final frontier!">
+							<TextContainer>
+								<p>
+									This website pulls images from NASA&apos;s APOD (Astronomy Picture of the Day) API
+									and allows you to like/unlike your favorites. The website design comes from{" "}
+									<a
+										href="https://polaris.shopify.com/"
+										style={{ color: "inherit" }}
+										target="_blank"
+										rel="noreferrer"
+									>
+										Shopify&apos;s Polaris library
+									</a>
+									.
+								</p>
+								<p>
+									<strong>Key Features:</strong>
+								</p>
+								<ul>
+									<li>
+										The images are progressively loaded from NASA&apos;s API. First, the thumbnail
+										of the image (provided from NASA) is shown and intentionally blurred. Once the
+										HD image is loaded, it is swapped in and the image is unblurred.
+									</li>
+									<li>
+										This website uses LocalStorage to keep track of an image&apos;s like status.
+									</li>
+									<li>
+										The Share button creates a shareable link that displays only the shared image.
+									</li>
+									<li>
+										Each image post is its own React component, so changing its state
+										(liking/unliking the image) will only re-render that specific image and not the
+										whole page.
+									</li>
+								</ul>
+							</TextContainer>
+						</Card>
+
+						{/* Date Picker */}
+						<Card sectioned title="Date Picker">
+							<DatePicker
+								month={month}
+								year={year}
+								onChange={setSelectedDates}
+								onMonthChange={handleMonthChange}
+								selected={selectedDates}
+								multiMonth
+								allowRange
+							/>
+						</Card>
+					</div>
+				)}
 				<br />
 				<br />
+
+				{/* Feed */}
 				<div style={{ maxWidth: "120rem", margin: "0 auto" }}>
 					{!error && isLoaded ? <Feed nasaItems={nasaItems} /> : <Loading />}
 				</div>
+
+				{/* Return to Main Site Button */}
+				{preRequestedDate && (
+					<div style={{ margin: "5rem auto 5rem", textAlign: "center" }}>
+						<Button onClick={() => window.location.replace("/")}>Return to Main Site</Button>
+					</div>
+				)}
+
+				{/* Footer */}
 				<footer style={{ margin: "5rem auto 5rem" }}>&copy; 2022 Brandon Yee.</footer>
 			</Page>
 		</AppProvider>
