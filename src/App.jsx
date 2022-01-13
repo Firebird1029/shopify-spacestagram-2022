@@ -91,6 +91,18 @@ function App() {
 					<DisplayText size="extraLarge">Spacestagram</DisplayText>
 				</a>
 				<br />
+				<p>
+					<strong>Github: </strong>
+					<a
+						href="https://github.com/Firebird1029/shopify-spacestagram-2022"
+						style={{ color: "inherit" }}
+						target="_blank"
+						rel="noreferrer"
+					>
+						https://github.com/Firebird1029/shopify-spacestagram-2022
+					</a>
+				</p>
+				<br />
 				{!preRequestedDate && (
 					<div>
 						{/* Introduction */}
