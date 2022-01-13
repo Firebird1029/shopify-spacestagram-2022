@@ -116,7 +116,17 @@ function App() {
 									<li>
 										The images are progressively loaded from NASA&apos;s API. First, the thumbnail
 										of the image (provided from NASA) is shown and intentionally blurred. Once the
-										HD image is loaded, it is swapped in and the image is unblurred.
+										HD image is loaded, it is swapped in and the image is unblurred, in the style
+										of&nbsp;
+										<a
+											href="https://medium.com/"
+											style={{ color: "inherit" }}
+											target="_blank"
+											rel="noreferrer"
+										>
+											Medium
+										</a>
+										.
 									</li>
 									<li>
 										This website uses LocalStorage to keep track of an image&apos;s like status.
