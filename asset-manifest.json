@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/shopify-spacestagram-2022/static/css/main.b63ca400.css",
-    "main.js": "/shopify-spacestagram-2022/static/js/main.f81479f8.js",
+    "main.js": "/shopify-spacestagram-2022/static/js/main.b6a47f68.js",
     "index.html": "/shopify-spacestagram-2022/index.html",
     "main.b63ca400.css.map": "/shopify-spacestagram-2022/static/css/main.b63ca400.css.map",
-    "main.f81479f8.js.map": "/shopify-spacestagram-2022/static/js/main.f81479f8.js.map"
+    "main.b6a47f68.js.map": "/shopify-spacestagram-2022/static/js/main.b6a47f68.js.map"
   },
   "entrypoints": [
     "static/css/main.b63ca400.css",
-    "static/js/main.f81479f8.js"
+    "static/js/main.b6a47f68.js"
   ]
 }
