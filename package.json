@@ -2,7 +2,7 @@
 	"name": "shopify-spacestagram-2022",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://firebird1029.github.io/shopify-spacestagram-2022",
+	"homepage": "https://spacestagram.brandonyee.xyz",
 	"dependencies": {
 		"@shopify/polaris": "^7.5.0",
 		"@shopify/polaris-icons": "^4.12.0",
@@ -23,7 +23,9 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"lint": "eslint .",
-		"lint:fix": "eslint --fix"
+		"lint:fix": "eslint --fix",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"eslintConfig": {
 		"extends": [
