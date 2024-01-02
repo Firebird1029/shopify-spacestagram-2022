@@ -24,9 +24,7 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"lint": "eslint .",
-		"lint:fix": "eslint --fix",
-		"predeploy": "npm run build",
-		"deploy": "rm -rf node_modules/ public/ src/ static/ ./.* *.json *.md && mv build/* . && rm -rf build/"
+		"lint:fix": "eslint --fix"
 	},
 	"eslintConfig": {
 		"extends": [
