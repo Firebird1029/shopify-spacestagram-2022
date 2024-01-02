@@ -26,7 +26,7 @@
 		"lint:fix": "eslint --fix",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
-		"manual-deploy": "npm run build && rm -rf node_modules/ public/ src/ .env* .eslintrc.json *.gitignore *.prettierrc package* *.md"
+		"manual-deploy": "npm run build && rm -rf node_modules/ public/ src/ .env* .eslintrc.json .gitignore .prettierrc package* *.md && mv build/* . && rm -rf build/"
 	},
 	"eslintConfig": {
 		"extends": [
